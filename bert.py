@@ -6,6 +6,8 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import DistilBertModel, DistilBertTokenizer
 
 # Setting up the device for GPU usage
+
+
 def bert(clean_data_set1):
     from torch import cuda
     device = 'cuda' if cuda.is_available() else 'cpu'
@@ -14,7 +16,7 @@ def bert(clean_data_set1):
 
     def encode_cat(x):
         if x not in encode_dict.keys():
-            encode_dict[x]=len(encode_dict)
+            encode_dict[x] = len(encode_dict)
         return len(encode_dict)
 
     clean_data_set1['ENCODE_CAT'] = clean_data_set1['troll_category'].apply(lambda x: encode_cat(x))
@@ -26,7 +28,6 @@ def bert(clean_data_set1):
     EPOCHS = 1
     LEARNING_RATE = 1e-05
     tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased', truncation=True)
-
 
     class Triage(Dataset):
         def __init__(self, dataframe, tokenizer, max_len):
@@ -58,13 +59,11 @@ def bert(clean_data_set1):
         def __len__(self):
             return self.len
 
-
     # Creating the dataset and dataloader for the neural network
 
     train_size = 0.4
-    train_dataset=clean_data_set1.sample(frac=train_size,random_state=200).reset_index(drop=True)
-    test_dataset=clean_data_set1.drop(train_dataset.index).reset_index(drop=True)
-
+    train_dataset = clean_data_set1.sample(frac=train_size, random_state=200).reset_index(drop=True)
+    test_dataset = clean_data_set1.drop(train_dataset.index).reset_index(drop=True)
 
     print("FULL Dataset: {}".format(clean_data_set1.shape))
     print("TRAIN Dataset: {}".format(train_dataset.shape))
@@ -111,6 +110,7 @@ def bert(clean_data_set1):
 
 
     # Defining the training function on the 80% of the dataset for tuning the distilbert model
+
 
     def train(epoch):
         model.train()
