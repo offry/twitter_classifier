@@ -127,7 +127,6 @@ if __name__ == '__main__':
     X_test_BOW= np.asarray(X_test_counts)
     y_test_BOW= np.asarray(y_test)
     evaluate_net(net_model, X_test_BOW, y_test_BOW)
-    print("hi regev")
 
     #bert
     #bert(clean_data_set1)
