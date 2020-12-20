@@ -119,6 +119,7 @@ def bert(clean_data_set1):
             mask = data['mask'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.long)
 
+
             outputs = model(ids, mask).squeeze()
 
             optimizer.zero_grad()
